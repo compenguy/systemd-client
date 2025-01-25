@@ -1,11 +1,11 @@
 use crate::{Result, UnitTuple};
 
-#[zbus::dbus_proxy(
+#[zbus::proxy(
     interface = "org.freedesktop.systemd1.Manager",
     default_service = "org.freedesktop.systemd1",
     default_path = "/org/freedesktop/systemd1"
 )]
-trait SystemdManager {
+pub trait SystemdManager {
     fn get_unit(&self, name: &str) -> zbus::Result<zvariant::OwnedObjectPath>;
     fn list_units(&self) -> zbus::Result<Vec<UnitTuple>>;
     fn load_unit(&self, name: &str) -> zbus::Result<zvariant::OwnedObjectPath>;
@@ -13,9 +13,9 @@ trait SystemdManager {
     fn restart_unit(&self, name: &str, mode: &str) -> zbus::Result<zvariant::OwnedObjectPath>;
     fn start_unit(&self, name: &str, mode: &str) -> zbus::Result<zvariant::OwnedObjectPath>;
     fn stop_unit(&self, name: &str, mode: &str) -> zbus::Result<zvariant::OwnedObjectPath>;
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     fn architecture(&self) -> zbus::Result<String>;
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     fn environment(&self) -> zbus::Result<Vec<String>>;
 }
 

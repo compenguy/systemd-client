@@ -1,19 +1,19 @@
 use crate::{Result, UnitProps};
 
-#[zbus::dbus_proxy(
+#[zbus::proxy(
     interface = "org.freedesktop.systemd1.Unit",
     default_service = "org.freedesktop.systemd1"
 )]
-trait SystemdUnit {
-    #[dbus_proxy(property)]
+pub trait SystemdUnit {
+    #[zbus(property)]
     fn id(&self) -> zbus::Result<String>;
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     fn description(&self) -> zbus::Result<String>;
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     fn load_state(&self) -> zbus::Result<String>;
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     fn active_state(&self) -> zbus::Result<String>;
-    #[dbus_proxy(property)]
+    #[zbus(property)]
     fn sub_state(&self) -> zbus::Result<String>;
 }
 
